@@ -19,6 +19,11 @@ void generateJustIntonation(double freq) {
     double sampleRateAsDouble = (double) audioFile.getSampleRate();
 
     audioFile.setAudioBufferSize(audioFile.getNumChannels(), sampleRateAsDouble * time);
+
+    /**
+     * I chose start + 44100 for 'end' because all samples per channel are (time * 44100) meaning 44100 samples per second... or sample rate
+     */
+
     int start = 0, end = start + 44100;
 
 
@@ -177,6 +182,5 @@ void generateJustIntonation(double freq) {
     } else {
         cout << "generation failed" << endl;
     }
-    cout << "GENERATED" << endl;
 }
 

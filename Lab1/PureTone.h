@@ -13,6 +13,8 @@ AudioFile<double> generatePureTone(double freq, string fileName, int time) {
     AudioFile<double> audioFile;
     double sampleRateAsDouble = (double) audioFile.getSampleRate();
 
+    audioFile.setAudioBufferSize(audioFile.getNumChannels(), sampleRateAsDouble * time);
+
     for (int i = 0; i < audioFile.getNumSamplesPerChannel(); i++) {
         double sample = sinf(2. * M_PI * ((double) i / sampleRateAsDouble) * freq);
 
@@ -22,6 +24,5 @@ AudioFile<double> generatePureTone(double freq, string fileName, int time) {
 
 
     audioFile.printSummary();
-    cout << "GENERATED" << endl;
     return audioFile;
 }

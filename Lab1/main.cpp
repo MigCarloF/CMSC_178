@@ -1,6 +1,7 @@
 #include <iostream>
 #include "PureTone.h"
 #include "JustIntonation.h"
+#include "TTET.h"
 #include <string>
 #include <sstream>
 
@@ -32,6 +33,9 @@ int main() {
             fileName = ss.str();
 
             duration = 10;
+            /**
+             * generation of pure tone here
+             */
             AudioFile<double> af = generatePureTone(initFreq, fileName, duration);
             if (af.save(fileName)) {
                 cout << "Pure tone generated and saved to " << "”" << fileName << "”" << endl;
@@ -51,12 +55,24 @@ int main() {
             cout << "Frequency of“Do”in Herz: " << endl;
             cin >> initFreq;
             if (initFreq > 20) { // error checking
+                /**
+                 * generation of Just intonation here
+                 */
                 generateJustIntonation(initFreq);
             } else {
                 cout << "invalid input" << endl;
             }
         } else if (choice2 == 2) {
-            //todo generate12-Tone temperament
+            cout << "Frequency of“Do”in Herz: " << endl;
+            cin >> initFreq;
+            if (initFreq > 20) { // error checking
+                /**
+                 * generation of TTET here
+                 */
+                generateTTET(initFreq);
+            } else {
+                cout << "invalid input" << endl;
+            }
         } else {
             cout << "Invalid input" << endl;
         }
