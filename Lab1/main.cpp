@@ -1,12 +1,13 @@
 #include <iostream>
 #include "PureTone.h"
-#include "TuningSequence.h"
+#include "JustIntonation.h"
+#include <string>
+#include <sstream>
 
 using namespace std;
 
-void generatePureTone();
+AudioFile<double> generatePureTone(double, string, int);
 
-void generateTuningSequence();
 
 int main() {
     /**
@@ -18,11 +19,47 @@ int main() {
     int input = 0;
     cin >> input;
 
-    if (input == 1) {
-        generatePureTone();
+    double initFreq;
+    string fileName;
+    int duration;
 
+    if (input == 1) {
+        cout << "Frequency of the pure tone in Hertz: " << endl;
+        cin >> initFreq;
+        if (initFreq > 0) {
+            stringstream ss;
+            ss << "sine-" << initFreq << ".wav";
+            fileName = ss.str();
+
+            duration = 10;
+            AudioFile<double> af = generatePureTone(initFreq, fileName, duration);
+            if (af.save(fileName)) {
+                cout << "Pure tone generated and saved to " << "”" << fileName << "”" << endl;
+            } else {
+                cout << "Error generating file" << endl;
+            }
+        } else {
+            cout << "Invalid Input" << endl;
+        }
     } else if (input == 2) {
-        generateTuningSequence();
+        int choice2;
+        cout << "1. Just Intonation" << endl;
+        cout << "2. 12-Tone Equal Temperament" << endl;
+        cout << "Choose a tuning system" << endl;
+        cin >> choice2;
+        if (choice2 == 1) {
+            cout << "Frequency of“Do”in Herz: " << endl;
+            cin >> initFreq;
+            if (initFreq > 20) { // error checking
+                generateJustIntonation(initFreq);
+            } else {
+                cout << "invalid input" << endl;
+            }
+        } else if (choice2 == 2) {
+            //todo generate12-Tone temperament
+        } else {
+            cout << "Invalid input" << endl;
+        }
     } else {
         cout << "Invalid Input" << endl;
     }
